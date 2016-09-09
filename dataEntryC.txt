@@ -1,0 +1,433 @@
+// Aditi.cpp : Defines the entry point for the console application.
+//
+
+#include<string.h>
+#include<stdlib.h>
+#include<conio.h>
+#include<dos.h>
+#include<iostream>
+#include<io.h>
+#include<stdio.h>
+using namespace std;
+FILE *fp;
+class employee
+{
+char passport[8];
+char name[25];
+char father[25];
+char dob[10];
+char department_code[10];
+char design[10];
+char grade[2];
+public:
+employee(char a[8],char b[25],char c[25],char d[10],char e[10],char f[10],char g[2])
+{
+strcpy(passport,a);
+strcpy(name,b);
+strcpy(father,c);
+strcpy(dob,d);
+strcpy(department_code,e);
+strcpy(design,f);
+strcpy(grade,g);
+}
+};
+
+
+class department
+{
+char department_code[10];
+char department_name[25];
+public:
+department(char a[10],char b[25])
+{
+strcpy(department_code,a);
+strcpy(department_name,b);
+}
+};
+
+
+class designation
+{
+char designation_code[10];
+char designation_name[25];
+public:
+designation(char a[10],char b[25])
+{
+strcpy(designation_code,a);
+strcpy(designation_name,b);
+}
+};
+
+
+class dependent
+{
+char passport[8];
+char dependent_serial[10];
+char dependent_name[25]; 
+char relation[10];
+char dob[10];
+public:
+dependent(char a[8],char b[10],char c[25],char d[10],char e[10])
+{
+strcpy(passport,a);
+strcpy(dependent_serial,b);
+strcpy(dependent_name,c);
+strcpy(relation,d);
+strcpy(dob,e);
+}
+};
+
+
+void file1()
+{
+		char pass[9];
+		char name1[26]="";
+		char father1[26]="";
+		char dob1[11]="";
+		char department1[11]="";
+		char design1[11]="";
+		char grade1[3]="";
+		
+printf("SUB MENU of Employee\n\n1. Insert\n2. Delete\n3. Update\n4. Return To Main Menu\n");
+int internal_selection=0;
+scanf("%d",&internal_selection);
+system("cls");
+
+if(internal_selection==1){
+
+	    cin.ignore();
+		printf("Enter Passport\n");
+		gets(pass);
+		printf("Enter Name\n");
+		gets(name1);
+		printf("Enter Father's Name\n");
+		gets(father1);
+		printf("Enter Date Of Birth\n");
+		gets(dob1);
+		printf("Enter Department Code\n");
+		gets(department1);
+		printf("Enter Design Code\n");
+		gets(design1);
+		printf("Enter Grade Code\n");
+		gets(grade1);
+
+		fp=fopen("EMP_MAS","a");
+		//employee emp=employee(passport,name,father,dob,department,design,grade);
+	    fputs(pass,fp);
+		fputs(",",fp);
+		fputs(name1,fp);
+		fputs(",",fp);
+		fputs(father1,fp);
+		fputs(",",fp);
+		fputs(dob1,fp);
+		fputs(",",fp);
+		fputs(department1,fp);
+		fputs(",",fp);
+		fputs(design1,fp);
+		fputs(",",fp);
+		fputs(grade1,fp);
+		fputs("\n",fp);
+		fclose(fp);
+}
+
+else if (internal_selection==2)
+{
+		char x[90],passx[9];
+		FILE *ft;
+		fp=fopen("EMP_MAS","r");
+		ft=fopen("temp","a");
+	    cin.ignore();
+		printf("Enter Passport\n");
+		gets(pass);
+		while(fgets(x,sizeof(x),fp)!=NULL)
+		{
+			for(int i=0;i<8;++i)
+			{
+			passx[i]=x[i];
+			}
+			passx[8]=pass[8];
+			if(strcmp(passx,pass)!=0)
+			{
+			fprintf(ft,"%s",x);
+			}
+		}
+		fclose(fp);fclose(ft);
+		remove("EMP_MAS");
+		rename("temp","EMP_MAS");
+		remove("temp");
+		
+}
+}
+
+void file2()
+{
+char department_code[11];
+char department_name[26];
+		
+printf("SUB MENU of Employee\n\n1. Insert\n2. Delete\n3. Update\n4. Return To Main Menu\n");
+int internal_selection=0;
+scanf("%d",&internal_selection);
+system("cls");
+
+if(internal_selection==1){
+
+	    cin.ignore();
+		printf("Enter Department_Name\n");
+		gets(department_name);
+		printf("Enter Department_Code\n");
+		gets(department_code);
+		
+
+		fp=fopen("DEPT_MAS","a");
+		//employee emp=employee(passport,name,father,dob,department,design,grade);
+	    fputs(department_code,fp);
+		fputs(",",fp);
+		fputs(department_name,fp);
+		fputs("\n",fp);
+		fclose(fp);
+}
+
+else if (internal_selection==2)
+{
+		char x[35],passx[11];
+		FILE *ft;
+		fp=fopen("DEPT_MAS","r");
+		ft=fopen("temp","a");
+	    cin.ignore();
+		printf("Enter Department_code\n");
+		gets(department_code);
+		while(fgets(x,sizeof(x),fp)!=NULL)
+		{
+		    printf("%s",x);
+			for(int i=0;i<8;++i)
+			{
+			passx[i]=x[i];
+			}
+			passx[11]=department_code[11];
+			if(strcmp(passx,department_code)!=0)
+			{
+			fprintf(ft,"%s",x);
+			}
+		}
+		fclose(fp);fclose(ft);
+		remove("DEPT_MAS");
+		rename("temp","DEPT_MAS");
+		remove("temp");
+		
+}
+}
+
+void file3()
+{
+char designation_code[11];
+char designation_name[26];
+		
+printf("SUB MENU of Employee\n\n1. Insert\n2. Delete\n3. Update\n4. Return To Main Menu\n");;
+int internal_selection=0;
+scanf("%d",&internal_selection);
+system("cls");
+
+if(internal_selection==1){
+
+	    cin.ignore();
+		printf("Enter Designation_Name\n");
+		gets(designation_name);
+		printf("Enter Designation_Code\n");
+		gets(designation_code);
+		
+
+		fp=fopen("DES_MAS","a");
+		//employee emp=employee(passport,name,father,dob,department,design,grade);
+	    fputs(designation_code,fp);
+		fputs(",",fp);
+		fputs(designation_name,fp);
+		fputs("\n",fp);
+		fclose(fp);
+}
+
+else if (internal_selection==2)
+{
+		char x[35],passx[11],pass[11];
+		FILE *ft;
+		fp=fopen("DES_MAS","r");
+		ft=fopen("temp","a");
+	    cin.ignore();
+		printf("Enter Designation_code\n");
+		gets(designation_code);
+		while(fgets(x,sizeof(x),fp)!=NULL)
+		{
+			for(int i=0;i<8;++i)
+			{
+			passx[i]=x[i];
+			}
+			passx[11]=designation_code[11];
+			if(strcmp(passx,designation_code)!=0)
+			{
+			fprintf(ft,"%s",x);
+			}
+		}
+		fclose(fp);fclose(ft);
+		remove("DES_MAS");
+		rename("temp","DES_MAS");
+		remove("temp");
+		
+}
+}
+
+void file4()
+{
+		char passport[9];
+char dependent_serial[11];
+char dependent_name[26]; 
+char relation[11];
+char dob[11];
+		
+printf("SUB MENU of Employee\n\n1. Insert\n2. Delete\n3. Update\n4. Return To Main Menu\n");
+int internal_selection=0;
+scanf("%d",&internal_selection);
+system("cls");
+
+if(internal_selection==1){
+
+	    cin.ignore();
+		printf("Enter Passport\n");
+		gets(passport);
+		printf("Enter Dependent Serial\n");
+		gets(dependent_serial);
+		printf("Enter Dependent Name\n");
+		gets(dependent_name);
+		printf("Enter Realtion\n");
+		gets(relation);
+		printf("Enter Date Of Birth\n");
+		gets(dob);
+
+		fp=fopen("DEPE_MAS","a");
+		//employee emp=employee(passport,name,father,dob,department,design,grade);
+	    fputs(passport,fp);
+		fputs(",",fp);
+		fputs(dependent_serial,fp);
+		fputs(",",fp);
+		fputs(dependent_name,fp);
+		fputs(",",fp);
+		fputs(relation,fp);
+		fputs(",",fp);
+		fputs(dob,fp);
+		fputs("\n",fp);
+		fclose(fp);
+}
+
+else if (internal_selection==2)
+{
+		char x[63],passx[9];
+		FILE *ft;
+		fp=fopen("DEPE_MAS","r");
+		ft=fopen("temp","a");
+	    cin.ignore();
+		printf("Enter Passport\n");
+		gets(passport);
+		while(fgets(x,sizeof(x),fp)!=NULL)
+		{
+			for(int i=0;i<8;++i)
+			{
+			passx[i]=x[i];
+			}
+			passx[8]=passport[8];
+			if(strcmp(passx,passport)!=0)
+			{
+			fprintf(ft,"%s",x);
+			}
+		}
+		fclose(fp);fclose(ft);
+		remove("DEPE_MAS");
+		rename("temp","DEPE_MAS");
+		remove("temp");
+		
+}
+}
+
+void file5()
+{
+	printf("SUB MENU of Report\n\n1. Employee List\n2. Department List\n3. Designation List\n4. Dependent List\n5. Return To Main Menu\n");
+int internal_selection=0;
+scanf("%d",&internal_selection);
+system("cls");
+if(internal_selection==1)
+{
+	fp=fopen("EMP_MAS","r");
+	char x[90];int cnt=0;
+	printf("Passport, Name, Father's Name, DOB, Department code, Design Code, Grade code\n\n");
+	while(fgets(x,sizeof(x),fp)!=NULL)
+		{
+			printf("Entry %d) %s\n\n",++cnt,x);
+		}fclose(fp);
+	cin.ignore();
+	getchar();
+
+}
+if(internal_selection==2)
+{
+	fp=fopen("DEPT_MAS","r");
+	char x[35];int cnt=0;
+	printf("Department Code, Department Name\n\n");
+	while(fgets(x,sizeof(x),fp)!=NULL)
+		{
+			printf("Entry %d) %s\n\n",++cnt,x);
+		}fclose(fp);
+	cin.ignore();
+	getchar();
+
+}
+if(internal_selection==3)
+{
+	fp=fopen("DES_MAS","r");
+	char x[35];int cnt=0;
+	printf("Designation Code, Designation Name\n\n");
+	while(fgets(x,sizeof(x),fp)!=NULL)
+		{
+			printf("Entry %d) %s\n\n",++cnt,x);
+		}fclose(fp);
+	cin.ignore();
+	getchar();
+
+}
+if(internal_selection==4)
+{
+	fp=fopen("DEPE_MAS","r");
+	char x[63];int cnt=0;
+	printf("Passport, Dependent Serial, Dependent Name, Relation, DOB\n\n");
+	while(fgets(x,sizeof(x),fp)!=NULL)
+		{
+			printf("Entry %d) %s\n\n",++cnt,x);
+		}fclose(fp);
+	cin.ignore();
+	getchar();
+
+}
+}
+
+
+int main()
+	{
+		
+		int selection=0;
+		//char abc[10];
+		do
+		{
+		printf("MAIN MENU\n1. create employee master\n2. create department master\n3. create designagtion master\n4. create dependent master\n5. report\n6. exit\n");
+	    scanf("%d",&selection);
+		system("cls");
+		if(selection==1)
+		{file1();system("cls");}
+		if(selection==2)
+		{file2();system("cls");}
+		if(selection==3)
+		{file3();system("cls");}
+		if(selection==4)
+		{file4();system("cls");}
+		if(selection==5)
+		{file5();system("cls");}
+		}while(selection!=6);
+		return 0;
+	}
+
+
